@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
+
 namespace bookstore.Models
 {
-    public class IBookstoreRepository
+    public interface IBookstoreRepository
     {
-        public IBookstoreRepository()
-        {
-        }
+        IQueryable<Book> Books { get; }
     }
 }

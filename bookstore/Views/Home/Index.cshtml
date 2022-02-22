@@ -2,7 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
+
+@model BooksViewModel
+
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h5 class="display-4">Titles</h5>
+    <br />
+    <!-- might use the picture later, not right now-->
+    @*<img src="img/bookstore.jpeg" style="max-width:500px" />*@
 </div>
+<br />
+
+
+@foreach (Book b in Model.Books)
+{
+    <partial name="BookSummary" model="b" />
+}
+
+<div page-blah="@Model.PageInfo" page-action="Index" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
+     page-classes-enabled="true"
+     class="btn-group pull-right m-1"></div>

@@ -6,32 +6,51 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using bookstore.Models;
+using bookstore.Models.ViewModels;
 
 namespace bookstore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IBookstoreRepository repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IBookstoreRepository temp)
         {
-            _logger = logger;
+            repo = temp;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult Privacy()
+        // index page
+        public IActionResult Index(string category, int pageNum = 1)
         {
-            return View();
-        }
+            int pageSize = 10;
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // calculate how many books to show on each page and have page numbers to correspond 
+            var x = new BooksViewModel
+            {
+                Books = repo.Books
+                .Where(b => b.Category == category || category == null )
+                .OrderBy(b => b.Title)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+
+                PageInfo = new PageInfo
+                {
+                    TotalNumBooks =
+                        (category == null
+                            ? repo.Books.Count()
+                            : repo.Books.Where(x => x.Category == category).Count()),
+                    BooksPerPage = pageSize,
+                    CurrentPage = pageNum
+                }
+            };
+
+
+            return View(x);
+
+
+
         }
     }
 }
+
