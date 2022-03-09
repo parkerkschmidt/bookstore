@@ -32,7 +32,7 @@ namespace bookstore.Models
         [Required]
         public string Category { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please add the page count: ")]
         public int PageCount { get; set; }
 
         [Required]

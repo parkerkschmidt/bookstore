@@ -20,7 +20,7 @@ namespace bookstore.Models
         [Required(ErrorMessage = "Please enter a last name: ")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Please the first address line: ")]
+        [Required(ErrorMessage = "Please enter the first address line: ")]
         public string AddressLine1 { get; set; }
 
         public string AddressLine2 { get; set; }
@@ -39,5 +39,7 @@ namespace bookstore.Models
         [Required(ErrorMessage = "Please enter the country: ")]
         public string Country { get; set; }
 
+        [BindNever]
+        public bool PurchaseShipped { get; set; } = false;
     }
 }

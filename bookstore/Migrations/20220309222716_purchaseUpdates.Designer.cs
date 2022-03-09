@@ -9,8 +9,8 @@ using bookstore.Models;
 namespace bookstore.Migrations
 {
     [DbContext(typeof(BookstoreContext))]
-    [Migration("20220302180710_NewUpdates")]
-    partial class NewUpdates
+    [Migration("20220309222716_purchaseUpdates")]
+    partial class purchaseUpdates
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,6 +117,9 @@ namespace bookstore.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("PurchaseShipped")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("State")
                         .IsRequired()
